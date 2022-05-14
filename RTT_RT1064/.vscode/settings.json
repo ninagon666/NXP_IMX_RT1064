@@ -1,0 +1,17 @@
+{
+    "C_Cpp.errorSquiggles": "Disabled",
+    "files.associations": {
+        "zf_iomuxc.h": "c",
+        "seekfree_printf.h": "c",
+        "seekfree_18tft.h": "c",
+        "display.h": "c",
+        "stdio.h": "c",
+        "headfile.h": "c",
+        "seekfree_font.h": "c",
+        "zf_csi.h": "c",
+        "motor.h": "c",
+        "target_location.h": "c",
+        "ios": "c",
+        "atomic": "c"
+    }
+}
