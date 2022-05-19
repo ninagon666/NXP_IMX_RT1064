@@ -10,45 +10,6 @@
 //定义拨码开关引脚
 #define SW2 D27
 
-//图像像素查找表
-/*************
- * 188 * 120 pixels
- * (93,59)为中心
- * ////y轴坐标与标号相同时
- * 仅记录x轴
- *************/
-//左上
-// uint8 left_top_x[] = {};    i   0 - 59
-const uint8 left_top_y[60] = {0, 1, 3, 4, 6, 7, 9, 10, 12, 14, 15,
-                              17, 18, 20, 21, 23, 25, 26, 28, 29, 31,
-                              32, 34, 36, 37, 39, 40, 42, 43, 45, 47,
-                              48, 50, 51, 53, 54, 56, 57, 59, 61, 62,
-                              64, 65, 67, 68, 70, 72, 73, 75, 76, 78,
-                              79, 81, 83, 84, 86, 87, 89, 90, 92};
-//右上
-// uint8 right_top_x[] = {};    i   0 - 59
-const uint8 right_top_y[60] = {186, 184, 183, 181, 180, 178, 177, 175, 173, 172,
-                               170, 169, 167, 166, 164, 162, 161, 159, 158, 156,
-                               155, 153, 151, 150, 148, 147, 145, 144, 142, 141,
-                               139, 137, 136, 134, 133, 131, 130, 128, 126, 125,
-                               123, 122, 120, 119, 117, 115, 114, 112, 111, 109,
-                               108, 106, 104, 103, 101, 100, 98, 97, 95, 94};
-//左下
-// uint8 left_bottom_x[] = {}; 120 - i  i   0 - 59
-const uint8 left_bottom_y[60] = {0, 1, 3, 4, 6, 7, 9, 10, 12, 14, 15,
-                                 17, 18, 20, 21, 23, 25, 26, 28, 29, 31,
-                                 32, 34, 36, 37, 39, 40, 42, 43, 45, 47,
-                                 48, 50, 51, 53, 54, 56, 57, 59, 61, 62,
-                                 64, 65, 67, 68, 70, 72, 73, 75, 76, 78,
-                                 79, 81, 83, 84, 86, 87, 89, 90, 92};
-//右下
-// uint8 right_bottom_x[] = {}; 120 - i  i   0 - 59
-const uint8 right_bottom_y[60] = {186, 184, 183, 181, 180, 178, 177, 175, 173, 172,
-                                  170, 169, 167, 166, 164, 162, 161, 159, 158, 156,
-                                  155, 153, 151, 150, 148, 147, 145, 144, 142, 141,
-                                  139, 137, 136, 134, 133, 131, 130, 128, 126, 125,
-                                  123, 122, 120, 119, 117, 115, 114, 112, 111, 109,
-                                  108, 106, 104, 103, 101, 100, 98, 97, 95, 94};
 //边缘点坐标 1~4顺时针
 uint8 edge_point1_x = 0, edge_point1_y = 0; //左上
 uint8 edge_point2_x = 0, edge_point2_y = 0; //右上
@@ -80,14 +41,14 @@ uint8 key4_flag;
 
 //二值化阈值 显示字符串
 uint8 thres = 100, thres_str[20];
-uint8 clip_value = 2;
+uint8 clip_value = 8;
 
 //边框补偿
 #define ROW_CLIP 5
 #define COLUMN_CLIP 5
 
 //点数阈值
-#define POINT_THRESHOLD 3
+#define POINT_THRESHOLD 5
 
 //总点数
 uint8 total_point = 0;
@@ -145,50 +106,65 @@ AT_ITCM_SECTION_INIT(void AdaptiveThreshold(uint8 *img_data, uint8 *output_data,
     }
 }
 
-void Find_Edge_1()
+void Find_Edge_1(uint8 edge_threshold)
 {
-    for (uint8 i = 10; i < 50; i++)
+    for (uint8 i = 60; i > 5; i--)
     {
-        if (mt9v03x_thres_image[i][left_top_y[i]] == 0)
+        for (uint8 j = 0; j < 188; j++)
         {
-            edge_point1_x = i;
-            edge_point1_y = left_top_y[i];
-            break;
+            if (mt9v03x_thres_image[i][j] == 0)
+                black_NUM++;
         }
-    } //左上区域
-
-    for (uint8 i = 10; i < 50; i++)
+        if (black_NUM > edge_threshold)
+        {
+            Xt = i;
+        }
+    } //上半区域 从中间向上搜索 逐行
+    
+    for (uint8 i = 61; i < 115; i++)
     {
-        if (mt9v03x_thres_image[i][right_top_y[i]] == 0)
+        black_NUM = 0;
+        for (uint8 j = 0; j < 188; j++)
         {
-            edge_point2_x = i;
-            edge_point2_y = right_top_y[i];
-            break;
+            if (mt9v03x_thres_image[i][j] == 0)
+                black_NUM++;
         }
-    } //右上区域
-
-    for (uint8 i = 10; i < 50; i++)
+        if (black_NUM > edge_threshold)
+        {
+            Xb = i;
+        }
+    } //下半区域 从中间向下搜索 逐行
+    
+    for (uint8 j = 94; j > 0; j--)
     {
-        if (mt9v03x_thres_image[i][right_bottom_y[i]] == 0)
+        black_NUM = 0;
+        for (uint8 i = 0; i < 120; i++)
         {
-            edge_point3_x = 120 - i;
-            edge_point3_y = right_bottom_y[i];
-            break;
+            if (mt9v03x_thres_image[i][j] == 0)
+                black_NUM++;
         }
-    } //右下区域
-
-    for (uint8 i = 10; i < 50; i++)
+        if (black_NUM > black_MAX)
+        {
+            Yl = j;
+        }
+    } //左半区域 
+    
+    for (uint8 j = 95; j < 188; j++)
     {
-        if (mt9v03x_thres_image[i][left_bottom_y[i]] == 0)
+        black_NUM = 0;
+        for (uint8 i = 0; i < 120; i++)
         {
-            edge_point4_x = 120 - i;
-            edge_point4_y = left_bottom_y[i];
-            break;
+            if (mt9v03x_thres_image[i][j] == 0)
+                black_NUM++;
         }
-    } //左下区域
+        if (black_NUM > black_MAX)
+        {
+            Yr = j;
+        }
+    } //右半区域
 }
 
-void Find_Edge_2()
+void Find_Edge_2(void)
 {
     black_MAX = 0;
     for (uint8 i = 0; i < 60; i++)
@@ -204,7 +180,7 @@ void Find_Edge_2()
             Xt = i;
             black_MAX = black_NUM;
         }
-    } //上半区域
+    } //上半区域 从顶部向中间搜索 逐行
 
     black_MAX = 0;
     for (uint8 i = 120; i > 60; i--)
@@ -273,17 +249,24 @@ void point_add(Point_place *pointx, uint8 x, uint8 y)
     pointx->column = pointx->y_sum / pointx->nums;
 }
 
+/*
+* 问题：一但画面畸变导致边框误判产生黑色断线会被判定为一个点
+*       判定阈值不准确，推测判断条件没能生效，原因可能是判断位置有问题
+*       统一最后判断可能会导致数组越界
+*/
+
 void Find_Point(uint8 Xt, uint8 Xb, uint8 Yl, uint8 Yr)
 {
     Point_place *NEXT = NULL;
+  
     for (uint16 i = Xt + 5; i < Xb - 5; i++)
     {
         for (uint8 j = Yl + 5; j < Yr - 5; j++)
         {
 
-            if (mt9v03x_thres_image[i][j] == 0)
+            if (mt9v03x_thres_image[i][j] == 0)//寻找到黑点
             {
-                if (total_point == 0)
+              if (total_point == 0)//该点为第一个黑点
                 {
                     NEXT = (&Points_arr[0]);
                     point_add(NEXT, i, j);
@@ -291,11 +274,11 @@ void Find_Point(uint8 Xt, uint8 Xb, uint8 Yl, uint8 Yr)
                 }
                 else
                 {
-                    uint8 flag = 0;
+                    uint8 flag = 0;//标记该点在列表内是否存在
 
-                    for (uint8 k = 0; k < total_point; k++)
+                    for (uint8 k = 0; k < total_point; k++)//遍历列表里所以点坐标 判断该点是否能放入已有列表
                     {
-                        if (abs(Points_arr[k].row - i) < 5 && abs(Points_arr[k].column - j) < 5)
+                        if (abs(Points_arr[k].row - i) < 5 && abs(Points_arr[k].column - j) < 5)//判断条件 列表里的点与其偏差在5*5的一个矩阵内
                         {
                             NEXT = (&Points_arr[k]);
                             point_add(NEXT, i, j);
@@ -303,14 +286,14 @@ void Find_Point(uint8 Xt, uint8 Xb, uint8 Yl, uint8 Yr)
                             break;
                         }
                     }
-                    if (flag == 0)
+                    if (flag == 0)//若不存在
                     {
                         NEXT = (&Points_arr[total_point - 1]);
-                        if ((*NEXT).nums < POINT_THRESHOLD)
+                        if ((*NEXT).nums < POINT_THRESHOLD) //判断上一个点内黑点值是否超过阈值 小于则删除是一个点
                         {
 
                             point_clean(NEXT);
-                            point_add(NEXT, i, j);
+                            point_add(NEXT, i, j);//将新搜索到的黑点存放入列表
                         }
                         else
                         {
@@ -323,7 +306,7 @@ void Find_Point(uint8 Xt, uint8 Xb, uint8 Yl, uint8 Yr)
             }
         }
     }
-    if (Points_arr[total_point - 1].nums < POINT_THRESHOLD)
+    if (Points_arr[total_point - 1].nums < POINT_THRESHOLD)//最后一个点单独判断其黑点值是否超过阈值
     {
         point_clean(&Points_arr[total_point - 1]);
         total_point--;
@@ -464,6 +447,8 @@ void Target_Location_Init(void)
     //初始化
     lcd_init();
     mt9v03x_csi_init(); //初始化摄像头 使用CSI接口
+    gpio_init(KEY1, GPI, 0, GPIO_PIN_CONFIG);
+    gpio_init(KEY2, GPI, 0, GPIO_PIN_CONFIG);
     gpio_init(KEY3, GPI, 0, GPIO_PIN_CONFIG);
     gpio_init(KEY4, GPI, 0, GPIO_PIN_CONFIG);
     gpio_init(SW2, GPI, 0, GPIO_PIN_CONFIG);

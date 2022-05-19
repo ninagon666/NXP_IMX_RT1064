@@ -1496,16 +1496,6 @@
               <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_FUN.h</FilePath>
             </File>
             <File>
-              <FileName>SEEKFREE_ICM20602.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_ICM20602.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_ICM20602.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_ICM20602.h</FilePath>
-            </File>
-            <File>
               <FileName>SEEKFREE_IIC.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_IIC.c</FilePath>
@@ -1514,56 +1504,6 @@
               <FileName>SEEKFREE_IIC.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_IIC.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_L3G4200D.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_L3G4200D.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_L3G4200D.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_L3G4200D.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_MMA8451.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_MMA8451.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_MMA8451.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_MMA8451.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_MPU6050.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_MPU6050.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_MPU6050.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_MPU6050.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_NRF24L01.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_NRF24L01.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_NRF24L01.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_NRF24L01.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_OLED.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_OLED.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_OLED.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_OLED.h</FilePath>
             </File>
             <File>
               <FileName>SEEKFREE_VIRSCO.c</FileName>
@@ -1614,46 +1554,6 @@
               <FileName>SEEKFREE_MT9V03X_CSI.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_MT9V03X_CSI.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_SCC8660.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_SCC8660.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_SCC8660.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_SCC8660.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_SCC8660_CSI.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_SCC8660_CSI.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_SCC8660_CSI.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_SCC8660_CSI.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_IPS114_SPI.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_IPS114_SPI.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_IPS114_SPI.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_IPS114_SPI.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_IPS200_PARALLEL8.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_IPS200_PARALLEL8.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_IPS200_PARALLEL8.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_IPS200_PARALLEL8.h</FilePath>
             </File>
             <File>
               <FileName>SEEKFREE_IMU963RA.c</FileName>
@@ -3789,16 +3689,6 @@
               <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_FUN.h</FilePath>
             </File>
             <File>
-              <FileName>SEEKFREE_ICM20602.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_ICM20602.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_ICM20602.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_ICM20602.h</FilePath>
-            </File>
-            <File>
               <FileName>SEEKFREE_IIC.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_IIC.c</FilePath>
@@ -3807,56 +3697,6 @@
               <FileName>SEEKFREE_IIC.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_IIC.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_L3G4200D.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_L3G4200D.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_L3G4200D.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_L3G4200D.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_MMA8451.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_MMA8451.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_MMA8451.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_MMA8451.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_MPU6050.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_MPU6050.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_MPU6050.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_MPU6050.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_NRF24L01.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_NRF24L01.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_NRF24L01.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_NRF24L01.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_OLED.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_OLED.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_OLED.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_OLED.h</FilePath>
             </File>
             <File>
               <FileName>SEEKFREE_VIRSCO.c</FileName>
@@ -3907,46 +3747,6 @@
               <FileName>SEEKFREE_MT9V03X_CSI.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_MT9V03X_CSI.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_SCC8660.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_SCC8660.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_SCC8660.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_SCC8660.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_SCC8660_CSI.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_SCC8660_CSI.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_SCC8660_CSI.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_SCC8660_CSI.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_IPS114_SPI.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_IPS114_SPI.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_IPS114_SPI.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_IPS114_SPI.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_IPS200_PARALLEL8.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_IPS200_PARALLEL8.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_IPS200_PARALLEL8.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_IPS200_PARALLEL8.h</FilePath>
             </File>
             <File>
               <FileName>SEEKFREE_IMU963RA.c</FileName>

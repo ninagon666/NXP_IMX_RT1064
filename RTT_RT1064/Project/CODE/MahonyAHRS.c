@@ -25,10 +25,6 @@
 #define twoKpDef	(2.0f * 6.5f)	// 2 * proportional gain
 #define twoKiDef	(2.0f * 0.3f)	// 2 * integral gain
 
-//float tmp1,tmp2,tmp3;
-//float magoffsetx=1.31454428611172,magoffsety=-1.21753632395713,magoffsetz=1.6567777185719;
-//float B[6]={0.980358187761106,-0.0105514731414606,0.00754899338354401,0.950648704823113,-0.0354995317649016,1.07449478456729};
-
 //---------------------------------------------------------------------------------------------------
 // Variable definitions
 
@@ -38,10 +34,10 @@ volatile float q0 = 1.0f, q1 = 0.0f, q2 = 0.0f, q3 = 0.0f;					// quaternion of 
 volatile float integralFBx = 0.0f,  integralFBy = 0.0f, integralFBz = 0.0f;	// integral error terms scaled by Ki
 char anglesComputed;
 
-arhs_source_param_t source_data;
-gyro_zero_param_t Gyro_Offset;
-mag_zero_param_t Mag_Offset;
-arhs_euler_param_t arhs_data;
+arhs_source_param_t source_data;//原始数据
+gyro_zero_param_t Gyro_Offset;//陀螺仪数据(校准使用)
+mag_zero_param_t Mag_Offset;//磁力计数据(校准使用)
+arhs_euler_param_t arhs_data;//解算结果
 
 //---------------------------------------------------------------------------------------------------
 // Function declarations
@@ -238,7 +234,7 @@ float invSqrt(float x) {
 	return y;
 }
 
-void imu_offset_init(void) /////////陀螺仪零飘初始化
+void imu_offset_init(void) /////////IMU零飘初始化
 {
     Gyro_Offset.Xdata = 0;
     Gyro_Offset.Ydata = 0;
@@ -284,7 +280,10 @@ void ARHS_getValues()
     source_data.gyro_y = ((float)imu963ra_gyro_y - Gyro_Offset.Ydata) * M_PI / 180 / 14.3f;
     source_data.gyro_z = ((float)imu963ra_gyro_z - Gyro_Offset.Zdata) * M_PI / 180 / 14.3f;
   
-//    //磁力计转换量程
+    //磁力计转换量程
+    source_data.mag_x = (float)imu963ra_mag_x / 3000.0f;
+    source_data.mag_y = (float)imu963ra_mag_y / 3000.0f;
+    source_data.mag_z = (float)imu963ra_mag_z / 3000.0f;
 //    source_data.mag_x = ((float)imu963ra_mag_x - Mag_Offset.Xdata) / 3000.0f;
 //    source_data.mag_y = ((float)imu963ra_mag_y - Mag_Offset.Ydata) / 3000.0f;
 //    source_data.mag_z = ((float)imu963ra_mag_z - Mag_Offset.Zdata) / 3000.0f;
@@ -298,7 +297,9 @@ void Mahony_computeAngles()
     imu963ra_get_mag();
 
     ARHS_getValues();
+    //六轴解算
     MahonyAHRSupdateIMU(source_data.gyro_x, source_data.gyro_y, source_data.gyro_z, source_data.acc_x, source_data.acc_y, source_data.acc_z);
+    //九轴解算
     //MahonyAHRSupdate(source_data.gyro_x, source_data.gyro_y, source_data.gyro_z, source_data.acc_x, source_data.acc_y, source_data.acc_z, source_data.mag_x, source_data.mag_y, source_data.mag_z);
 
     //四元数计算欧拉角

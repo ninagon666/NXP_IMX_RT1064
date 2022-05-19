@@ -3,6 +3,8 @@
 
 #include "headfile.h"
 
+extern rt_uint32_t run_gap;
+
 void timer_pit_init(void);
 
 #endif

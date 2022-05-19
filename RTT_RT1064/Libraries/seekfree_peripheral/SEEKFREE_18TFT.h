@@ -66,7 +66,7 @@
 //#define PINK    		    0XFE19	//粉色
 
 //定义写字笔的颜色
-#define TFT_PENCOLOR RED
+#define TFT_PENCOLOR BLACK
 
 //定义背景颜色
 #define TFT_BGCOLOR WHITE

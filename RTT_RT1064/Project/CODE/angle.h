@@ -22,7 +22,7 @@ typedef struct angle_param_t
         // MODE_POSLOOP,
     } run_mode; //ÔËÐÐ×´Ì¬Ã¶¾Ù
     
-    pid_param_t pid;       //Motor PID param
+    pid_param_t pid;       //PID param
 } angle_param_t;
 
 extern angle_param_t Angle;

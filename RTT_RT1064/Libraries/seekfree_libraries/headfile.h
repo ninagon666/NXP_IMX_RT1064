@@ -67,23 +67,13 @@
 //------逐飞科技产品驱动头文件
 #include "SEEKFREE_FONT.h"
 #include "SEEKFREE_18TFT.h"
-#include "SEEKFREE_IPS114_SPI.h"
-#include "SEEKFREE_IPS200_PARALLEL8.h"
 #include "SEEKFREE_IIC.h"
 #include "SEEKFREE_VIRSCO.h"
 #include "SEEKFREE_FUN.h"
-#include "SEEKFREE_MPU6050.h"
-#include "SEEKFREE_OLED.h"
-#include "SEEKFREE_NRF24L01.h"
-#include "SEEKFREE_MMA8451.h"
-#include "SEEKFREE_L3G4200D.h"
-#include "SEEKFREE_ICM20602.h"
 #include "SEEKFREE_MT9V03X.h"
 #include "SEEKFREE_WIRELESS.h"
 #include "SEEKFREE_MT9V03X_CSI.h"
 #include "SEEKFREE_W25QXXJV.h"
-#include "SEEKFREE_SCC8660_CSI.h"
-#include "SEEKFREE_SCC8660.h"
 #include "SEEKFREE_IMU963RA.h"
 
 #endif

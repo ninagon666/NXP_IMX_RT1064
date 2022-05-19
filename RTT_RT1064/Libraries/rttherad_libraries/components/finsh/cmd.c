@@ -41,80 +41,114 @@
 #include "MIMXRT1064.h"
 #include "angle.h"
 #include "motor.h"
+#include "time_pit.h"
 
 #define LIST_FIND_OBJ_NR 8
 
+static void imu_init(void)
+{
+  imu963ra_init();
+}
+MSH_CMD_EXPORT(imu_init, imu init);
+
+
 static void target_speed(int argc, char**argv)
 {    
+    float speed_set = 0.0;
+  
     if (argc < 2)
     {
-        rt_kprintf("Please input'target_speed <a|b|c|d>");
+        rt_kprintf("Please input suck like 'target_speed 10");
         return;
     }
 
-    if (!rt_strcmp(argv[1], "a"))
+    if(*argv[1] == 0 || (*argv[1] - '0') > 9 || (*argv[1] - '0') < 0)
     {
-        all_wheels_set(0);
-        rt_kprintf("Target speed is 0!\n");
+        rt_kprintf("Please input suck like 'target_speed 10");
+        return;
     }
-    else if (!rt_strcmp(argv[1], "b"))
+    else if(*(argv[1] + 1) == 0)
     {
-        all_wheels_set(10);
-        rt_kprintf("Target speed is 10!\n");
+       speed_set = (float)(*argv[1] - '0');
     }
-    else if (!rt_strcmp(argv[1], "c"))
+    else if(*(argv[1] + 2) == 0)
     {
-        all_wheels_set(15);
-        rt_kprintf("Target speed is 15!\n");
-    }
-    else if (!rt_strcmp(argv[1], "d"))
-    {
-        all_wheels_set(20);
-        rt_kprintf("Target speed is 20!\n");
+       speed_set = (float)(*argv[1] - '0') * 10 + (float)(*(argv[1] + 1) - '0');
     }
     else
     {
-        rt_kprintf("Please input'target_speed <a|b|c|d>");
+       speed_set = (float)(*argv[1] - '0') * 100 + (float)(*(argv[1] + 1) - '0') * 10 + (float)(*(argv[1] + 2) - '0');  
     }
+
+    all_wheels_set(speed_set);
+    total_encoder_clear();
 }
-MSH_CMD_EXPORT(target_speed, target speed sample: target_speed <a|b|c|d>);
+MSH_CMD_EXPORT(target_speed, target speed sample);
 
 static void turn(int argc, char**argv)
 {
-    Angle.run_mode = MODE_TURN;
+    float angle_set = 0.0;
     
     if (argc < 2)
     {
-        rt_kprintf("Please input'turn <a|b|c|d>");
+        rt_kprintf("Please input suck like 'turn 233\n");
         return;
     }
-
-    if (!rt_strcmp(argv[1], "a"))
+    
+    Angle.run_mode = MODE_TURN;
+    
+    if(*argv[1] == 0 || (*argv[1] - '0') > 9 || (*argv[1] - '0') < 0)
     {
-        Angle.target_angle = 0.0;
-        rt_kprintf("target angle is 0!\n");
+        rt_kprintf("Please input suck like 'turn 233\n");
+        return;
     }
-    else if (!rt_strcmp(argv[1], "b"))
+    else if(*(argv[1] + 1) == 0)
     {
-        Angle.target_angle = 90.0;
-        rt_kprintf("target angle is 90!\n");
+       angle_set = (float)(*argv[1] - '0');
     }
-    else if (!rt_strcmp(argv[1], "c"))
+    else if(*(argv[1] + 2) == 0)
     {
-        Angle.target_angle = 180.0;
-        rt_kprintf("target angle is 180!\n");
-    }
-    else if (!rt_strcmp(argv[1], "d"))
-    {
-        Angle.target_angle = 270.0;
-        rt_kprintf("target angle is 270!\n");
+       angle_set = (float)(*argv[1] - '0') * 10 + (float)(*(argv[1] + 1) - '0');
     }
     else
     {
-        rt_kprintf("Please input'turn <a|b|c|d>");
+       angle_set = (float)(*argv[1] - '0') * 100 + (float)(*(argv[1] + 1) - '0') * 10 + (float)(*(argv[1] + 2) - '0');  
     }
+
+    Angle.target_angle = angle_set;
+    //PRINTF("angle is %.0lf\n", angle_set);
 }
-MSH_CMD_EXPORT(turn, turn sample: turn <a|b|c|d>);
+MSH_CMD_EXPORT(turn, turn sample);
+
+static void run(int argc, char**argv)
+{    
+    if (argc < 2)
+    {
+        rt_kprintf("Please input suck like 'run 233\n");
+        return;
+    }
+    
+    if(*argv[1] == 0 || (*argv[1] - '0') > 9 || (*argv[1] - '0') < 0)
+    {
+        rt_kprintf("Please input suck run 'turn 233\n");
+        return;
+    }
+    else if(*(argv[1] + 1) == 0)
+    {
+       run_gap = (rt_uint32_t)(*argv[1] - '0');
+    }
+    else if(*(argv[1] + 2) == 0)
+    {
+       run_gap = (rt_uint32_t)(*argv[1] - '0') * 10 + (rt_uint32_t)(*(argv[1] + 1) - '0');
+    }
+    else
+    {
+       run_gap = (rt_uint32_t)(*argv[1] - '0') * 100 + (rt_uint32_t)(*(argv[1] + 1) - '0') * 10 + (rt_uint32_t)(*(argv[1] + 2) - '0');  
+    }
+  
+    Angle.run_mode = MODE_RUN;
+}
+MSH_CMD_EXPORT(run, set motors speed & run);
 
 static long stop(void)
 {
@@ -124,14 +158,6 @@ static long stop(void)
 }
 FINSH_FUNCTION_EXPORT(stop, all motors stoping);
 MSH_CMD_EXPORT(stop, all motors stoping);
-
-static long run(void)
-{
-    Angle.run_mode = MODE_RUN;
-    return 0;
-}
-FINSH_FUNCTION_EXPORT(run, motors running);
-MSH_CMD_EXPORT(run, motors running);
 
 static long reboot(void)
 {

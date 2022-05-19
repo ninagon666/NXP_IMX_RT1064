@@ -44,7 +44,7 @@ int main(void)
   display_init();
   encoder_init();
   motor_init();
-  Angle.run_mode = MODE_RUN;
+  Angle.run_mode = MODE_STOP;
 //  rt_thread_mdelay(5000);
 //  while(1)
 //  {

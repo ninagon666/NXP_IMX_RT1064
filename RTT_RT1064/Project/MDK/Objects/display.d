@@ -96,23 +96,13 @@
   ..\..\Libraries\rttherad_libraries\components\finsh\finsh_api.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_FONT.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_18TFT.h \
-  ..\..\Libraries\seekfree_peripheral\SEEKFREE_IPS114_SPI.h \
-  ..\..\Libraries\seekfree_peripheral\SEEKFREE_IPS200_PARALLEL8.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_IIC.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_VIRSCO.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_FUN.h \
-  ..\..\Libraries\seekfree_peripheral\SEEKFREE_MPU6050.h \
-  ..\..\Libraries\seekfree_peripheral\SEEKFREE_OLED.h \
-  ..\..\Libraries\seekfree_peripheral\SEEKFREE_NRF24L01.h \
-  ..\..\Libraries\seekfree_peripheral\SEEKFREE_MMA8451.h \
-  ..\..\Libraries\seekfree_peripheral\SEEKFREE_L3G4200D.h \
-  ..\..\Libraries\seekfree_peripheral\SEEKFREE_ICM20602.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_MT9V03X.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_WIRELESS.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_MT9V03X_CSI.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_W25QXXJV.h \
-  ..\..\Libraries\seekfree_peripheral\SEEKFREE_SCC8660_CSI.h \
-  ..\..\Libraries\seekfree_peripheral\SEEKFREE_SCC8660.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_IMU963RA.h \
   ..\CODE\motor.h ..\CODE\pid.h ..\CODE\display.h \
   D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h ..\CODE\MahonyAHRS.h \

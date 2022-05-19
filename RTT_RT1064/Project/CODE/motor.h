@@ -19,12 +19,12 @@
 
 typedef struct motor_param_t
 {
-    float total_encoder;  //编码器总值 total = raw + speed 此值用于记录总的运行距离 不需要清零
+    float total_encoder;  //编码器总值 total = raw + speed 此值用于记录总行程
     //float target_encoder; //编码器目标值 ？不知有何用处 暂不用
     float encoder_raw;    //编码器原始数据 raw = half of编码器读取值
     float encoder_speed;  //测量速度 speed是raw一阶低通滤波出来的值
     float target_speed;   //目标速度
-    int32_t duty; //Motor PWM duty
+    rt_int32_t duty; //Motor PWM duty
 
     pid_param_t pid;       //Motor PID param
     pid_param_t stop_pid; //stop Motor PID param
@@ -41,8 +41,9 @@ extern motor_param_t motor_1, motor_2, motor_3, motor_4;
 
 
 void motor_duty(PWMCH_enum pwmch, int32 DUTY, PIN_enum PIN);
-void motor_init();
-int64_t get_total_encoder();
+void motor_init(void);
+int64_t get_total_encoder(void);
+void total_encoder_clear(void);
 void all_wheels_set(float ats);
     
 #endif

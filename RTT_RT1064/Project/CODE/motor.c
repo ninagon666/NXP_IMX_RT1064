@@ -1,9 +1,9 @@
 #include "motor.h"
 //
-motor_param_t motor_1 = MOTOR_CREATE(20, 900, 25, 6000, 1, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
-motor_param_t motor_2 = MOTOR_CREATE(20, 900, 25, 6000, 1, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
-motor_param_t motor_3 = MOTOR_CREATE(20, 900, 25, 6000, 1, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
-motor_param_t motor_4 = MOTOR_CREATE(20, 900, 25, 6000, 1, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
+motor_param_t motor_1 = MOTOR_CREATE(0, 900, 25, 6000, 1, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
+motor_param_t motor_2 = MOTOR_CREATE(0, 600, 25, 7000, 1, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
+motor_param_t motor_3 = MOTOR_CREATE(0, 510, 25, 8500, 1, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
+motor_param_t motor_4 = MOTOR_CREATE(0, 900, 25, 6000, 1, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
 
 void all_wheels_set(float ats)
 {
@@ -90,7 +90,15 @@ void motor_init(void)
     // pwm_duty(PWM_4, 0);
 }
 
-int64_t get_total_encoder()
+void total_encoder_clear(void)
+{
+    motor_1.total_encoder = 0;
+    motor_2.total_encoder = 0;
+    motor_3.total_encoder = 0;
+    motor_4.total_encoder = 0;
+}
+
+int64_t get_total_encoder(void)
 {
     return (int64_t)((motor_1.total_encoder +
                       motor_2.total_encoder +
