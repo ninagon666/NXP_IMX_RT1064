@@ -104,5 +104,6 @@
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_WIRELESS.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_MT9V03X_CSI.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_W25QXXJV.h \
-  ..\..\Libraries\seekfree_peripheral\SEEKFREE_IMU963RA.h \
+  ..\..\Libraries\seekfree_peripheral\SEEKFREE_IMU963RA.h ..\CODE\road.h \
+  ..\CODE\time_pit.h ..\CODE\buzzer.h \
   D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h

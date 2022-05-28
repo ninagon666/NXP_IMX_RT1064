@@ -10,9 +10,9 @@ void Target_Location_Init(void);
 
 typedef struct
 {
-    uint32 x_sum;
-    uint32 y_sum;
-    uint8 nums;
+    uint32 row_sum;    //当前坐标点搜寻到到黑点行总和
+    uint32 column_sum; //当前坐标点搜寻到到黑点列总和
+    uint8 nums;        //当前坐标点内包含黑点总数
     uint8 row;
     uint8 column;
 } Point_place;

@@ -294,7 +294,7 @@ void Mahony_computeAngles()
     //采集陀螺仪数据
     imu963ra_get_acc();
     imu963ra_get_gyro();
-    imu963ra_get_mag();
+    //imu963ra_get_mag();
 
     ARHS_getValues();
     //六轴解算

@@ -1,6 +1,7 @@
 {
     "C_Cpp.errorSquiggles": "Disabled",
     "files.associations": {
+        "*.asm": "8051",
         "zf_iomuxc.h": "c",
         "seekfree_printf.h": "c",
         "seekfree_18tft.h": "c",
@@ -12,6 +13,10 @@
         "motor.h": "c",
         "target_location.h": "c",
         "ios": "c",
-        "atomic": "c"
+        "atomic": "c",
+        "time_pit.h": "c",
+        "road.h": "c",
+        "buzzer.h": "c",
+        "math.h": "c"
     }
 }

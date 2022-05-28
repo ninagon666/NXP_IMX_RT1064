@@ -83,7 +83,15 @@ void GPIO2_Combined_0_15_IRQHandler(void)
     rt_interrupt_leave();
 }
 
-
+//void GPIO3_Combined_16_31_IRQHandler(void)
+//{
+//    rt_interrupt_enter();
+//    if(GET_GPIO_FLAG(D27))
+//    {
+//        CLEAR_GPIO_FLAG(D27);//清除中断标志位
+//    }
+//    rt_interrupt_leave();
+//}
 
 /*
 GPIO3_Combined_0_15_IRQHandler

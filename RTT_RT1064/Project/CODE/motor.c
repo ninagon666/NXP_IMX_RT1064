@@ -1,9 +1,9 @@
 #include "motor.h"
 //
-motor_param_t motor_1 = MOTOR_CREATE(0, 900, 25, 6000, 1, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
-motor_param_t motor_2 = MOTOR_CREATE(0, 600, 25, 7000, 1, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
-motor_param_t motor_3 = MOTOR_CREATE(0, 510, 25, 8500, 1, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
-motor_param_t motor_4 = MOTOR_CREATE(0, 900, 25, 6000, 1, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
+motor_param_t motor_1 = MOTOR_CREATE(0, 900, 25, 6000, 1, 0.5, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
+motor_param_t motor_2 = MOTOR_CREATE(0, 580, 25, 7600, 1, 0.5, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
+motor_param_t motor_3 = MOTOR_CREATE(0, 510, 25, 8500, 1, 0.5, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
+motor_param_t motor_4 = MOTOR_CREATE(0, 900, 25, 6000, 1, 0.5, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
 
 void all_wheels_set(float ats)
 {
@@ -81,6 +81,24 @@ void motor_init(void)
     pwm_init(PWM_2, 17000, 0);
     pwm_init(PWM_3, 17000, 0);
     pwm_init(PWM_4, 17000, 0);
+
+    // 电机停转PID控制 稍微超调增快响应
+    motor_1.stop_pid.kp = 1100;
+    motor_1.stop_pid.ki = 30;
+    motor_1.stop_pid.kd = 8000;
+
+    motor_2.stop_pid.kp = 1100;
+    motor_2.stop_pid.ki = 30;
+    motor_2.stop_pid.kd = 8000;
+
+    motor_3.stop_pid.kp = 1100;
+    motor_3.stop_pid.ki = 30;
+    motor_3.stop_pid.kd = 8000;
+    
+    motor_4.stop_pid.kp = 1100;
+    motor_4.stop_pid.ki = 30;
+    motor_4.stop_pid.kd = 8000;
+    
     //位置
     // 3  4
     // 1  2

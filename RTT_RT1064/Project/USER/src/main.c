@@ -31,40 +31,23 @@
 #include "display.h"
 #include "encoder.h"
 #include "motor.h"
-#include "pid.h"
+//#include "pid.h"
 #include "time_pit.h"
 #include "target_location.h"
 #include "angle.h"
+#include "buzzer.h"
+#include "button.h"
 
 int main(void)
 {
   // usb_cdc_init();
+  buzzer_init();
+  button_init();
+  Target_Location_Init();
   timer_pit_init();
-  //Target_Location_Init();
   display_init();
   encoder_init();
   motor_init();
-  Angle.run_mode = MODE_STOP;
-//  rt_thread_mdelay(5000);
-//  while(1)
-//  {
-//      Angle.target_angle = 0.0;
-//      rt_thread_mdelay(2000);
-//      Angle.target_angle = 45.0;
-//      rt_thread_mdelay(2000);
-//      Angle.target_angle = 90.0;
-//      rt_thread_mdelay(2000);
-//      Angle.target_angle = 135.0;
-//      rt_thread_mdelay(2000);
-//      Angle.target_angle = 180.0;
-//      rt_thread_mdelay(2000);
-//      Angle.target_angle = 225.0;
-//      rt_thread_mdelay(2000);
-//      Angle.target_angle = 270.0;
-//      rt_thread_mdelay(2000);
-//      Angle.target_angle = 315.0;
-//      rt_thread_mdelay(2000);
-//  }
 
   EnableGlobalIRQ(0);
   

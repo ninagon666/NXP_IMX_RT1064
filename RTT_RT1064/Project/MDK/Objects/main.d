@@ -105,4 +105,5 @@
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_W25QXXJV.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_IMU963RA.h \
   ..\CODE\display.h ..\CODE\encoder.h ..\CODE\motor.h ..\CODE\pid.h \
-  ..\CODE\time_pit.h ..\CODE\target_location.h ..\CODE\angle.h
+  ..\CODE\time_pit.h ..\CODE\target_location.h ..\CODE\angle.h \
+  ..\CODE\buzzer.h ..\CODE\button.h

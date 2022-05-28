@@ -32,11 +32,11 @@ typedef struct motor_param_t
 
 extern motor_param_t motor_1, motor_2, motor_3, motor_4;
 
-#define MOTOR_CREATE(ts, kp, ki, kd, low_pass, p_max, i_max, d_max) \
+#define MOTOR_CREATE(ts, kp, ki, kd, low_pass, _gama, p_max, i_max, d_max) \
     {                                                                                             \
         .total_encoder = 0,                                                                       \
         .target_speed = ts,                                                                       \
-        .pid = PID_CREATE(kp, ki, kd, low_pass, p_max, i_max, d_max),                             \
+        .pid = PID_CREATE(kp, ki, kd, low_pass, _gama, p_max, i_max, d_max),                             \
     }
 
 

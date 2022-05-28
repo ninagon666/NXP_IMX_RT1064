@@ -52,8 +52,7 @@ void display_init(void)
     rt_thread_t tid;
 
     //初始化屏幕
-    lcd_init();
-    //寻找坐标时已经初始化
+    //lcd_init();
     
     //创建显示线程 优先级设置为31
     tid = rt_thread_create("display", display_entry, RT_NULL, 1024, 31, 10);

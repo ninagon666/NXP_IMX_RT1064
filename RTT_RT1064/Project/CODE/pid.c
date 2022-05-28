@@ -1,54 +1,136 @@
 #include "pid.h"
 
-#define I_CHANGE 1//是否启用变积分
+#define USED 1
+#define UNUSED 0
+#define I_CHANGE USED //是否启用变积分
+#define D_AHEAD USED //是否启用微分先行
 
-static float kic = 1.0;//变积分参数
+static float kic = 1.0; //变积分参数
 
 // 常规PID
-float pid_solve(pid_param_t *pid, float error)
+float pid_solve_dah(pid_param_t *pid, float error)
 {
-    pid->out_d = (error - pid->out_p) * pid->low_pass + pid->out_d * (1 - pid->low_pass);
-    pid->out_p = error;
-    pid->out_i += error;
+  float pid_output;
 
-    #if I_CHANGE
-    if(abs(error) > 100)
-    {
-      kic = 0.0;
-    }
-    else if(abs(error) > 90 && abs(error) <=100)
-    {
-      kic = 0.3;
-    }
-    else if(abs(error) > 75 && abs(error) <=90)
-    {
-      kic = 0.5;
-    }
-    else if(abs(error) > 50 && abs(error) <=75)
-    {
-      kic = 0.8;
-    }
-    else
-    {
-      kic = 1.0;
-    }
-    #endif
+#if D_AHEAD
+
+  float c1, c2, c3, temp;
+
+  temp = pid->gama * pid->kd + pid->kp;
   
-    if (pid->ki != 0)
-        pid->out_i = MINMAX(pid->out_i, -pid->i_max / pid->ki, pid->i_max / pid->ki);//积分限幅
+  c3 = pid->kd / temp;
+  c2 = (pid->kd + pid->kp) / temp;
+  c1 = pid->gama * c3;
+  
+  pid->out_d = c1 * pid->out_d + c2 * error + c3 * pid->pre_error;
 
-    return MINMAX(pid->kp * pid->out_p + kic * pid->ki * pid->out_i + pid->kd * pid->out_d, -PWM_DUTY_MAX, PWM_DUTY_MAX);
+#elif !D_AHEAD
+
+  pid->out_d = (error - pid->out_p) * pid->low_pass + pid->out_d * (1 - pid->low_pass);
+
+#endif
+
+  pid->out_p = error;
+  pid->out_i += error;
+
+#if I_CHANGE
+
+  if (abs(error) > 75)
+    kic = 0.0;
+  else if (abs(error) > 60 && abs(error) <= 75)
+    kic = 0.3;
+  else if (abs(error) > 45 && abs(error) <= 60)
+    kic = 0.5;
+  else if (abs(error) > 30 && abs(error) <= 45)
+    kic = 0.8;
+  else
+    kic = 1.0;
+
+#endif
+
+  if (pid->ki != 0)
+    pid->out_i = MINMAX(pid->out_i, -pid->i_max / pid->ki, pid->i_max / pid->ki); //积分限幅
+
+#if D_AHEAD
+
+  pid_output = MINMAX(pid->kp * pid->out_p + kic * pid->ki * pid->out_i + pid->out_d, -PWM_DUTY_MAX, PWM_DUTY_MAX); //输出限幅
+  pid->pre_error = error;
+
+#elif !D_AHEAD
+
+  pid_output = MINMAX(pid->kp * pid->out_p + kic * pid->ki * pid->out_i + pid->kd * pid->out_d, -PWM_DUTY_MAX, PWM_DUTY_MAX); //输出限幅
+
+#endif
+
+  return pid_output;
+}
+
+float pid_solve_nomal(pid_param_t *pid, float error)
+{
+  float pid_output;
+
+#if UNUSED
+
+  float c1, c2, c3, temp;
+
+  temp = pid->gama * pid->kd + pid->kp;
+  
+  c3 = pid->kd / temp;
+  c2 = (pid->kd + pid->kp) / temp;
+  c1 = pid->gama * c3;
+  
+  pid->out_d = c1 * pid->out_d + c2 * error + c3 * pid->pre_error;
+
+#elif USED
+
+  pid->out_d = (error - pid->out_p) * pid->low_pass + pid->out_d * (1 - pid->low_pass);
+
+#endif
+
+  pid->out_p = error;
+  pid->out_i += error;
+
+#if I_CHANGE
+
+  if (abs(error) > 75)
+    kic = 0.0;
+  else if (abs(error) > 60 && abs(error) <= 75)
+    kic = 0.3;
+  else if (abs(error) > 45 && abs(error) <= 60)
+    kic = 0.5;
+  else if (abs(error) > 30 && abs(error) <= 45)
+    kic = 0.8;
+  else
+    kic = 1.0;
+
+#endif
+
+  if (pid->ki != 0)
+    pid->out_i = MINMAX(pid->out_i, -pid->i_max / pid->ki, pid->i_max / pid->ki); //积分限幅
+
+#if UNUSED
+
+  pid_output = MINMAX(pid->kp * pid->out_p + kic * pid->ki * pid->out_i + pid->out_d, -PWM_DUTY_MAX, PWM_DUTY_MAX); //输出限幅
+  pid->pre_error = error;
+
+#elif USED
+
+  pid_output = MINMAX(pid->kp * pid->out_p + kic * pid->ki * pid->out_i + pid->kd * pid->out_d, -PWM_DUTY_MAX, PWM_DUTY_MAX); //输出限幅
+
+#endif
+
+  return pid_output;
 }
 
 // 增量式PID
 float increment_pid_solve(pid_param_t *pid, float error)
 {
-    pid->out_d = MINMAX(pid->kd * (error - 2 * pid->pre_error + pid->pre_pre_error), -pid->d_max, pid->d_max);
-    pid->out_p = MINMAX(pid->kp * (error - pid->pre_error), -pid->p_max, pid->p_max);
-    pid->out_i = MINMAX(pid->ki * error, -pid->i_max, pid->i_max);
+  pid->out_d = MINMAX(pid->kd * (error - 2 * pid->pre_error + pid->pre_pre_error), -pid->d_max, pid->d_max);
+  pid->out_p = MINMAX(pid->kp * (error - pid->pre_error), -pid->p_max, pid->p_max);
+  pid->out_i = MINMAX(pid->ki * error, -pid->i_max, pid->i_max);
 
-    pid->pre_pre_error = pid->pre_error;
-    pid->pre_error = error;
+  pid->pre_pre_error = pid->pre_error;
+  pid->pre_error = error;
 
-    return pid->out_p + pid->out_i + pid->out_d;
+  return pid->out_p + pid->out_i + pid->out_d;
 }

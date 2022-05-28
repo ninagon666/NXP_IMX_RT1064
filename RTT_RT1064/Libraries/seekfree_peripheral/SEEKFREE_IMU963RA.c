@@ -305,7 +305,7 @@ uint8 imu963ra_init (void)
     simiic_delay_set(IMU963RA_SOFT_IIC_DELAY);
     simiic_init();
 #else
-    spi_init(IMU963RA_SPI, IMU963RA_SPC_PIN, IMU963RA_SDI_PIN, IMU963RA_SDO_PIN, IMU963RA_CS_PIN, 0, 10*1000*1000);//硬件SPI初始化
+    spi_init(IMU963RA_SPI, IMU963RA_SPC_PIN, IMU963RA_SDI_PIN, IMU963RA_SDO_PIN, IMU963RA_CS_PIN, 3, 10*1000*1000);//硬件SPI初始化
 
 #endif
     

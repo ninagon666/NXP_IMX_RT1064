@@ -17,6 +17,7 @@ typedef struct
     float d_max; //d_integrator_max
 
     float low_pass;//一阶低通滤波系数
+    float gama;    //微分先行滤波系数
 
     float out_p;
     float out_i;
@@ -25,6 +26,8 @@ typedef struct
     float error;
     float pre_error;     //前次误差
     float pre_pre_error; //前前次误差
+
+    //float last_output;//前次输出
 } pid_param_t;
 
 /*
@@ -33,7 +36,7 @@ typedef struct
  * how to use : pid_param_t XX = PID_CREATE(kp, ki, kd, low_pass, max_p, max_i, max_d);
  */
 
-#define PID_CREATE(_kp, _ki, _kd, _low_pass, max_p, max_i, max_d) \
+#define PID_CREATE(_kp, _ki, _kd, _low_pass, _gama, max_p, max_i, max_d) \
     {                                                             \
         .kp = _kp,                                                \
         .ki = _ki,                                                \
@@ -45,10 +48,11 @@ typedef struct
         .p_max = max_p,                                           \
         .i_max = max_i,                                           \
         .d_max = max_d,                                           \
+        .gama = _gama,                                            \
     }
 
-float pid_solve(pid_param_t *pid, float error);
-
+float pid_solve_dah(pid_param_t *pid, float error);
+float pid_solve_nomal(pid_param_t *pid, float error);    
 float increment_pid_solve(pid_param_t *pid, float error);
 
 #endif /* _PID_H_ */
