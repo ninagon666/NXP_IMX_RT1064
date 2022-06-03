@@ -1,10 +1,11 @@
 #include "buzzer.h"
 #include "button.h"
 
-//#define KEY_1   C4	// 定义主板上按键对应引脚
-//#define KEY_2   C26	// 定义主板上按键对应引脚
-//#define KEY_3   C27	// 定义主板上按键对应引脚
-//#define KEY_4   C31	// 定义主板上按键对应引脚
+#define KEY_UP C27
+#define KEY_DOWN D4
+#define KEY_LEFT C31
+#define KEY_RIGHT C4
+#define KEY_ENTER C26
 
 #define KEY_1 C31
 #define KEY_2 C27

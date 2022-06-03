@@ -320,13 +320,22 @@ void Mahony_computeAngles()
         }
     }
 
-    if (arhs_data.yaw > 360)
+//    if (arhs_data.yaw > 360)
+//    {
+//        arhs_data.yaw -= 360;
+//    }
+//    else if (arhs_data.yaw < 0)
+//    {
+//        arhs_data.yaw += 360;
+//    }
+    
+    if (arhs_data.yaw > 0)
     {
-        arhs_data.yaw -= 360;
+        arhs_data.yaw = 360 - arhs_data.yaw;
     }
     else if (arhs_data.yaw < 0)
     {
-        arhs_data.yaw += 360;
+        arhs_data.yaw = -arhs_data.yaw;
     }
 }
 //====================================================================================================

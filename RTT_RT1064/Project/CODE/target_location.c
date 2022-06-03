@@ -4,19 +4,35 @@
 #include "buzzer.h"
 #include <stdio.h>
 
-//定义按键引脚
-//#define KEY1 C25
-//#define KEY2 C26
-//#define KEY3 C3
-//#define KEY4 C4
-
-#define KEY1 C31
-#define KEY2 C27
-#define KEY3 C26
-#define KEY4 C4
+#define KEY_UP C27
+#define KEY_DOWN D4
+#define KEY_LEFT C31
+#define KEY_RIGHT C4
+#define KEY_ENTER C26
 
 //定义拨码开关引脚
 #define SW2 D27
+
+//开关状态变量
+uint8 key_up_status = 1;
+uint8 key_down_status = 1;
+uint8 key_left_status = 1;
+uint8 key_right_status = 1;
+uint8 key_enter_status = 1;
+
+//上一次开关状态变量
+uint8 key_up_last_status;
+uint8 key_down_last_status;
+uint8 key_left_last_status;
+uint8 key_right_last_status;
+uint8 key_enter_last_status;
+
+//开关标志位
+uint8 key_up_flag;
+uint8 key_down_flag;
+uint8 key_left_flag;
+uint8 key_right_flag;
+uint8 key_enter_flag;
 
 //边缘点坐标 1~4顺时针
 uint8 edge_point1_x = 0, edge_point1_y = 0; //左上
@@ -25,29 +41,14 @@ uint8 edge_point3_x = 0, edge_point3_y = 0; //右下
 uint8 edge_point4_x = 0, edge_point4_y = 0; //左下
 
 //边缘线坐标 Xt 上边缘X坐标 Xb 下边缘X坐标 Yl 左边缘Y坐标 Yr 右边缘Y坐标
-uint8 Xt = 0, Xb = 0, Yl = 0, Yr = 0;
-
-//开关状态变量
-uint8 key1_status = 1;
-uint8 key2_status = 1;
-uint8 key3_status = 1;
-uint8 key4_status = 1;
-
-//上一次开关状态变量
-uint8 key1_last_status;
-uint8 key2_last_status;
-uint8 key3_last_status;
-uint8 key4_last_status;
-
-//开关标志位
-uint8 key1_flag;
-uint8 key2_flag;
-uint8 key3_flag;
-uint8 key4_flag;
+uint8 Xt = 40, Xb = 80, Yl = 50, Yr = 110;
 
 //二值化阈值 显示字符串
 uint8 thres = 100, thres_str[20];
 uint8 clip_value = 8;
+
+//总点数
+uint8 total_point = 0;
 
 //边框补偿
 #define ROW_CLIP 5
@@ -56,14 +57,11 @@ uint8 clip_value = 8;
 //点数阈值
 #define POINT_THRESHOLD 5
 
-//总点数
-uint8 total_point = 0;
-
 //寻找坐标点时数组
 static Point_place Points_arr[30] = {0};
 
 //坐标点数组
-extern int points_map[21][2];
+extern int points_map[22][2];
 
 //二值化图像指针
 uint8 (*mt9v03x_thres_image)[MT9V03X_CSI_W];
@@ -411,64 +409,72 @@ void Target_Location_entry()
     while (gpio_get(SW2))
     {
         //保存按键状态
-        key1_last_status = key1_status;
-        key2_last_status = key2_status;
-        key3_last_status = key3_status;
-        key4_last_status = key4_status;
+        key_up_last_status = key_up_status;
+        key_down_last_status = key_down_status;
+        key_left_last_status = key_left_status;
+        key_right_last_status = key_right_status;
+        key_enter_last_status = key_enter_status;
+
         //读取当前按键状态
-        key1_status = gpio_get(KEY1);
-        key2_status = gpio_get(KEY2);
-        key3_status = gpio_get(KEY3);
-        key4_status = gpio_get(KEY4);
+        key_up_status = gpio_get(KEY_UP);
+        key_down_status = gpio_get(KEY_DOWN);
+        key_left_status = gpio_get(KEY_LEFT);
+        key_right_status = gpio_get(KEY_RIGHT);
+        key_enter_status = gpio_get(KEY_ENTER);
 
         //检测到按键按下之后  并放开置位标志位
-        if (key1_status && !key1_last_status)
-            key1_flag = 1;
-        if (key2_status && !key2_last_status)
-            key2_flag = 1;
-        if (key3_status && !key3_last_status)
-            key3_flag = 1;
-        if (key4_status && !key4_last_status)
-            key4_flag = 1;
+        if (key_up_status && !key_up_last_status)
+            key_up_flag = 1;
+        if (key_down_status && !key_down_last_status)
+            key_down_flag = 1;
+        if (key_right_status && !key_right_last_status)
+            key_right_flag = 1;
+        if (key_right_status && !key_right_last_status)
+            key_right_flag = 1;
+        if (key_enter_status && !key_enter_last_status)
+            key_enter_flag = 1;
 
         //标志位置位之后，可以使用标志位执行自己想要做的事件
-        if (key1_flag)
+        if (key_up_flag)
         {
-            key1_flag = 0; //使用按键之后，应该清除标志位
+            key_up_flag = 0; //使用按键之后，应该清除标志位
+            thres++;
+            clip_value++;
         }
 
-        if (key2_flag)
+        if (key_down_flag)
         {
-            key2_flag = 0; //使用按键之后，应该清除标志位
+            key_down_flag = 0; //使用按键之后，应该清除标志位
+            thres--;
+            clip_value--;
+        }
 
+        if (key_right_flag)
+        {
+            key_right_flag = 0; //使用按键之后，应该清除标志位
+        }
+
+        if (key_right_flag)
+        {
+            key_right_flag = 0; //使用按键之后，应该清除标志位
+        }
+
+        if (key_enter_flag)
+        {
+            key_enter_flag = 0; //使用按键之后，应该清除标志位
             if (MODE_TAG == 0)
                 MODE_TAG = 1;
             else if (MODE_TAG == 2)
                 remake = 1;
         }
-
-        if (key3_flag)
-        {
-            key3_flag = 0; //使用按键之后，应该清除标志位
-
-            thres++;
-            clip_value++;
-        }
-
-        if (key4_flag)
-        {
-            key4_flag = 0; //使用按键之后，应该清除标志位
-
-            thres--;
-            clip_value--;
-        }
-
+        
         //在TFT上显示测试变量
-        sprintf((char *)thres_str, "clip_value: %d", clip_value);
-        sprintf((char *)point1_str, "Xt:%d Xb:%d", Xt, Xb);
-        sprintf((char *)point2_str, "Yl:%d Yr:%d", Yl, Yr);
-        sprintf((char *)point3_str, "Points: %d ", ture_points_num);
-        sprintf((char *)point4_str, "MODE: %d", MODE_TAG);
+        sprintf((char *)thres_str, "clip_value:%d ", clip_value);
+        sprintf((char *)point1_str, "Xt:%d  Xb:%d  ", Xt, Xb);
+        sprintf((char *)point2_str, "Yl:%d  Yr:%d  ", Yl, Yr);
+        sprintf((char *)point3_str, "Points:%d MODE:%d", ture_points_num, MODE_TAG);
+        sprintf((char *)point4_str, "%d %d %d %d %d %d", points_label[0], points_label[1], points_label[2], 
+                                                         points_label[3], points_label[4], points_label[5]);
         lcd_showstr(0, 5, (int8 *)thres_str);
         lcd_showstr(0, 6, (int8 *)point1_str);
         lcd_showstr(0, 7, (int8 *)point2_str);
@@ -484,7 +490,7 @@ void Target_Location_entry()
                 // 以下进入临界区
                 // 临界区代码执行不会被其他线程抢占
                 //二值化
-                AdaptiveThreshold(mt9v03x_csi_image[0], mt9v03x_thres_image[0], MT9V03X_CSI_W, MT9V03X_CSI_H, 5, clip_value);
+                AdaptiveThreshold(mt9v03x_csi_image[0], mt9v03x_thres_image[0], MT9V03X_CSI_W, MT9V03X_CSI_H, 7, clip_value);
                 Find_Edge_1();
                 // rt_exit_critical();// 调度器解锁
                 edge_point1_x = Xt;
@@ -516,31 +522,39 @@ void Target_Location_entry()
 
             Find_Point_2(Xt, Xb, Yl, Yr);
             ture_points_num = 0;
-            points_map[0][0] = Xb;
-            points_map[0][1] = Yr;
-            for (int i = 0; i < total_point; ++i)//消除噪点
+            points_map[0][0] = Yr;
+            points_map[0][1] = Xb;
+            for (int i = 0; i < total_point; ++i) //消除噪点
             {
-                if(Points_arr[i].nums > POINT_THRESHOLD)
+                if (Points_arr[i].nums > POINT_THRESHOLD)
                 {
-                  ture_points_num++;
-                  points_map[ture_points_num][0] = Points_arr[i].column;
-                  points_map[ture_points_num][1] = Points_arr[i].row;
+                    ture_points_num++;
+                    points_map[ture_points_num][0] = Points_arr[i].column;
+                    points_map[ture_points_num][1] = Points_arr[i].row;
                 }
             }
-            //画点
+            find_road(points_map, points_label); //路径规划
+            //画地图
             for (int i = 0; i <= ture_points_num; ++i)
-            {
-              lcd_drawLine(points_map[i][0] * 82 / MT9V03X_CSI_H - 2, points_map[i][1] * 128 / MT9V03X_CSI_W, 
-                           points_map[i][0] * 82 / MT9V03X_CSI_H + 2, points_map[i][1] * 128 / MT9V03X_CSI_W, RED);
-              lcd_drawLine(points_map[i][0] * 82 / MT9V03X_CSI_H, points_map[i][1] * 128 / MT9V03X_CSI_W - 2, 
-                           points_map[i][0] * 82 / MT9V03X_CSI_H, points_map[i][1] * 128 / MT9V03X_CSI_W + 2, RED);
-            }           
+            { //画坐标点
+                lcd_drawLine(points_map[i][0] * 82 / MT9V03X_CSI_H - 2, points_map[i][1] * 128 / MT9V03X_CSI_W,
+                             points_map[i][0] * 82 / MT9V03X_CSI_H + 2, points_map[i][1] * 128 / MT9V03X_CSI_W, RED);
+                lcd_drawLine(points_map[i][0] * 82 / MT9V03X_CSI_H, points_map[i][1] * 128 / MT9V03X_CSI_W - 2,
+                             points_map[i][0] * 82 / MT9V03X_CSI_H, points_map[i][1] * 128 / MT9V03X_CSI_W + 2, RED);
+                if (i < ture_points_num)
+                {
+                    lcd_drawLine(points_map[points_label[i]][0] * 82 / MT9V03X_CSI_H, points_map[points_label[i]][1] * 128 / MT9V03X_CSI_W,
+                                 points_map[points_label[i + 1]][0] * 82 / MT9V03X_CSI_H, points_map[points_label[i + 1]][1] * 128 / MT9V03X_CSI_W, BLUE);
+                } //画路径
+            }    
+            map_change(points_map, true_map, ture_points_num, points_label, Yr, Xb);//转换坐标系
+            map_calculate(true_map, turn_angle, map_gap, ture_points_num, 
+                         (double)(Yr - Yl) / 100.0f, (double)(Xb - Xt) / 100.0f);
             //            for(int i = 0; i < MT9V03X_CSI_H; ++i) {
             //              for(int j = 0; j < MT9V03X_CSI_W; ++j)
             //                PRINTF("%u  ", mt9v03x_thres_image[i][j] / 255);
             //              PRINTF("\n");
             //            }
-
             MODE_TAG = 2;
         }
         else if (MODE_TAG == 2)
@@ -553,18 +567,19 @@ void Target_Location_entry()
                 {
                     NEXT = &Points_arr[total_point - 1];
                     point_clean(NEXT);
+                    points_label[total_point - 1] = 0;
                 }
 
                 MODE_TAG = 0;
                 remake = 0;
             }
         }
-      }
-      
-      rt_mb_send(buzzer_mailbox, 233);
-      lcd_clear(WHITE);
+    }
 
-      return;
+    rt_mb_send(buzzer_mailbox, 233);
+    lcd_clear(WHITE);
+
+    return;
 }
 
 void Target_Location_Init(void)
@@ -574,10 +589,11 @@ void Target_Location_Init(void)
     //初始化
     lcd_init();
     mt9v03x_csi_init(); //初始化摄像头 使用CSI接口
-    gpio_init(KEY1, GPI, 0, GPIO_PIN_CONFIG);
-    gpio_init(KEY2, GPI, 0, GPIO_PIN_CONFIG);
-    gpio_init(KEY3, GPI, 0, GPIO_PIN_CONFIG);
-    gpio_init(KEY4, GPI, 0, GPIO_PIN_CONFIG);
+    gpio_init(KEY_UP, GPI, 0, GPIO_PIN_CONFIG);
+    gpio_init(KEY_DOWN, GPI, 0, GPIO_PIN_CONFIG);
+    gpio_init(KEY_LEFT, GPI, 0, GPIO_PIN_CONFIG);
+    gpio_init(KEY_RIGHT, GPI, 0, GPIO_PIN_CONFIG);
+    gpio_init(KEY_ENTER, GPI, 0, GPIO_PIN_CONFIG);
     gpio_init(SW2, GPI, 0, GPIO_PIN_CONFIG);
 
     //创建寻找坐标线程 优先级设置为8

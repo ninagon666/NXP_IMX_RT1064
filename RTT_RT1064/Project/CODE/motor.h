@@ -4,18 +4,28 @@
 #include "headfile.h"
 #include "pid.h"
 
-#define DIR_1 D1
-#define DIR_2 D0
-#define DIR_3 D12
-#define DIR_4 D13
-#define PWM_1 PWM2_MODULE3_CHB_D3
-#define PWM_2 PWM2_MODULE3_CHA_D2
-#define PWM_3 PWM1_MODULE1_CHB_D15
-#define PWM_4 PWM1_MODULE1_CHA_D14
+#define MOTOR1_A   PWM1_MODULE1_CHB_D15   //定义1电机正转PWM引脚
+#define MOTOR1_B   PWM1_MODULE0_CHA_D12   //定义1电机反转PWM引脚
+                        
+#define MOTOR2_A   PWM2_MODULE3_CHB_D3   //定义2电机正转PWM引脚
+#define MOTOR2_B   PWM1_MODULE3_CHB_D1   //定义2电机反转PWM引脚
+    
+#define MOTOR3_A   PWM1_MODULE0_CHB_D13  //定义3电机正转PWM引脚
+#define MOTOR3_B   PWM1_MODULE1_CHA_D14  //定义3电机反转PWM引脚
+    
+#define MOTOR4_A   PWM2_MODULE3_CHA_D2  //定义4电机正转PWM引脚
+#define MOTOR4_B   PWM1_MODULE3_CHA_D0  //定义4电机反转PWM引脚
 
 #define MOTOR_P_MAX 20000
 #define MOTOR_I_MAX 10000
 #define MOTOR_D_MAX 20000
+
+typedef enum{
+  motor_1_ = 0,
+  motor_2_,
+  motor_3_,
+  motor_4_
+}motor_label;
 
 typedef struct motor_param_t
 {
@@ -40,7 +50,7 @@ extern motor_param_t motor_1, motor_2, motor_3, motor_4;
     }
 
 
-void motor_duty(PWMCH_enum pwmch, int32 DUTY, PIN_enum PIN);
+void motor_duty(motor_label motor_x_,int32 DUTY);
 void motor_init(void);
 int64_t get_total_encoder(void);
 void total_encoder_clear(void);

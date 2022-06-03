@@ -37,10 +37,14 @@
 #include "angle.h"
 #include "buzzer.h"
 #include "button.h"
+#include "control.h"
 
 int main(void)
 {
   // usb_cdc_init();
+  gpio_init(B9, GPO, 0, GPIO_PIN_CONFIG);
+  pwm_init(PWM4_MODULE2_CHA_C30, 50, 3850+1000);
+  
   buzzer_init();
   button_init();
   Target_Location_Init();
@@ -48,7 +52,8 @@ int main(void)
   display_init();
   encoder_init();
   motor_init();
-
+  control_init();
+  
   EnableGlobalIRQ(0);
   
   return 0;

@@ -17,6 +17,7 @@
         "time_pit.h": "c",
         "road.h": "c",
         "buzzer.h": "c",
-        "math.h": "c"
+        "math.h": "c",
+        "control.h": "c"
     }
 }

@@ -7,7 +7,6 @@
 
 static float kic = 1.0; //变积分参数
 
-// 常规PID
 float pid_solve_dah(pid_param_t *pid, float error)
 {
   float pid_output;
@@ -35,6 +34,7 @@ float pid_solve_dah(pid_param_t *pid, float error)
 
 #if I_CHANGE
 
+#if USED
   if (abs(error) > 75)
     kic = 0.0;
   else if (abs(error) > 60 && abs(error) <= 75)
@@ -45,6 +45,9 @@ float pid_solve_dah(pid_param_t *pid, float error)
     kic = 0.8;
   else
     kic = 1.0;
+#elif UNUSED  
+  
+#endif
 
 #endif
 
@@ -65,6 +68,7 @@ float pid_solve_dah(pid_param_t *pid, float error)
   return pid_output;
 }
 
+// 常规PID
 float pid_solve_nomal(pid_param_t *pid, float error)
 {
   float pid_output;
@@ -133,4 +137,24 @@ float increment_pid_solve(pid_param_t *pid, float error)
   pid->pre_error = error;
 
   return pid->out_p + pid->out_i + pid->out_d;
+}
+
+float change_kib = 4;
+
+//变积分PID，e大i小
+float changable_pid_solve(pid_param_t *pid, float error) {
+    pid->out_d = pid->kd * (error - 2 * pid->pre_error + pid->pre_pre_error);
+    pid->out_p = pid->kp * (error - pid->pre_error);
+    float ki_index = pid->ki;
+    if (error + pid->pre_error > 0) {
+        ki_index = (pid->ki) - (pid->ki) / (1 + exp(change_kib - 0.2 * fabs(error)));    //变积分控制
+    }
+
+    pid->out_i = ki_index * error;
+    pid->pre_pre_error = pid->pre_error;
+    pid->pre_error = error;
+
+    return MINMAX(pid->out_p, -pid->p_max, pid->p_max)
+         + MINMAX(pid->out_i, -pid->i_max, pid->i_max)
+         + MINMAX(pid->out_d, -pid->d_max, pid->d_max);
 }

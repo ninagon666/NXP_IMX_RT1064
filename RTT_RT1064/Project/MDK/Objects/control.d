@@ -1,33 +1,12 @@
-./objects/cmd.o: \
-  ..\..\Libraries\rttherad_libraries\components\finsh\cmd.c \
-  ..\..\Libraries\rttherad_libraries\include\rthw.h \
-  ..\..\Libraries\rttherad_libraries\include\rtthread.h \
-  ..\..\Libraries\rttherad_libraries\bsp\rtconfig.h \
-  ..\..\Libraries\rttherad_libraries\include\rtdebug.h \
-  ..\..\Libraries\rttherad_libraries\include\rtdef.h \
-  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
-  ..\..\Libraries\rttherad_libraries\include\rtlibc.h \
-  ..\..\Libraries\rttherad_libraries\include\libc\libc_stat.h \
+./objects/control.o: ..\CODE\control.c ..\CODE\control.h \
+  ..\..\Libraries\seekfree_libraries\headfile.h \
   D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
-  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\time.h \
-  ..\..\Libraries\rttherad_libraries\include\libc\libc_errno.h \
-  ..\..\Libraries\rttherad_libraries\include\libc\libc_fcntl.h \
-  ..\..\Libraries\rttherad_libraries\include\libc\libc_ioctl.h \
-  ..\..\Libraries\rttherad_libraries\include\libc\libc_dirent.h \
-  ..\..\Libraries\rttherad_libraries\include\libc\libc_signal.h \
-  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\signal.h \
-  ..\..\Libraries\rttherad_libraries\include\libc\libc_fdset.h \
-  ..\..\Libraries\rttherad_libraries\include\libc\libc_limits.h \
-  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\limits.h \
-  ..\..\Libraries\rttherad_libraries\include\libc\libc_stdio.h \
-  ..\..\Libraries\rttherad_libraries\include\rtservice.h \
-  ..\..\Libraries\rttherad_libraries\include\rtm.h \
-  ..\..\Libraries\rttherad_libraries\components\finsh\finsh_api.h \
-  ..\..\Libraries\rttherad_libraries\components\finsh\finsh.h \
-  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
-  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\ctype.h \
-  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
+  ..\..\Libraries\nxp_libraries\drives\fsl_common.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\assert.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
   D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
+  ..\..\Libraries\nxp_libraries\deceive\fsl_device_registers.h \
   ..\..\Libraries\nxp_libraries\deceive\MIMXRT1064.h \
   ..\..\Libraries\nxp_libraries\CMSIS\Include\core_cm7.h \
   ..\..\Libraries\nxp_libraries\CMSIS\Include\cmsis_version.h \
@@ -37,11 +16,6 @@
   D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
   ..\..\Libraries\nxp_libraries\CMSIS\Include\mpu_armv7.h \
   ..\..\Libraries\nxp_libraries\deceive\system_MIMXRT1064.h \
-  ..\CODE\angle.h ..\..\Libraries\seekfree_libraries\headfile.h \
-  ..\..\Libraries\nxp_libraries\drives\fsl_common.h \
-  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\assert.h \
-  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
-  ..\..\Libraries\nxp_libraries\deceive\fsl_device_registers.h \
   ..\..\Libraries\nxp_libraries\deceive\MIMXRT1064_features.h \
   ..\..\Libraries\nxp_libraries\drives\fsl_clock.h \
   ..\..\Libraries\nxp_libraries\utilities\debug_console\fsl_debug_console.h \
@@ -99,6 +73,27 @@
   ..\..\Libraries\nxp_libraries\drives\fsl_wdog.h \
   ..\..\Libraries\seekfree_libraries\zf_usb_cdc.h \
   ..\..\Libraries\seekfree_libraries\zf_sdcard.h \
+  ..\..\Libraries\rttherad_libraries\include\rtthread.h \
+  ..\..\Libraries\rttherad_libraries\bsp\rtconfig.h \
+  ..\..\Libraries\rttherad_libraries\include\rtdebug.h \
+  ..\..\Libraries\rttherad_libraries\include\rtdef.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
+  ..\..\Libraries\rttherad_libraries\include\rtlibc.h \
+  ..\..\Libraries\rttherad_libraries\include\libc\libc_stat.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\time.h \
+  ..\..\Libraries\rttherad_libraries\include\libc\libc_errno.h \
+  ..\..\Libraries\rttherad_libraries\include\libc\libc_fcntl.h \
+  ..\..\Libraries\rttherad_libraries\include\libc\libc_ioctl.h \
+  ..\..\Libraries\rttherad_libraries\include\libc\libc_dirent.h \
+  ..\..\Libraries\rttherad_libraries\include\libc\libc_signal.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\signal.h \
+  ..\..\Libraries\rttherad_libraries\include\libc\libc_fdset.h \
+  ..\..\Libraries\rttherad_libraries\include\libc\libc_limits.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\limits.h \
+  ..\..\Libraries\rttherad_libraries\include\libc\libc_stdio.h \
+  ..\..\Libraries\rttherad_libraries\include\rtservice.h \
+  ..\..\Libraries\rttherad_libraries\include\rtm.h \
+  ..\..\Libraries\rttherad_libraries\components\finsh\finsh_api.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_FONT.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_18TFT.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_IIC.h \
@@ -108,5 +103,6 @@
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_WIRELESS.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_MT9V03X_CSI.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_W25QXXJV.h \
-  ..\..\Libraries\seekfree_peripheral\SEEKFREE_IMU963RA.h ..\CODE\pid.h \
-  ..\CODE\motor.h ..\CODE\time_pit.h ..\CODE\road.h ..\CODE\MahonyAHRS.h
+  ..\..\Libraries\seekfree_peripheral\SEEKFREE_IMU963RA.h \
+  ..\CODE\time_pit.h ..\CODE\road.h ..\CODE\angle.h ..\CODE\pid.h \
+  ..\CODE\motor.h ..\CODE\MahonyAHRS.h

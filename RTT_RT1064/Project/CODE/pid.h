@@ -54,6 +54,7 @@ typedef struct
 float pid_solve_dah(pid_param_t *pid, float error);
 float pid_solve_nomal(pid_param_t *pid, float error);    
 float increment_pid_solve(pid_param_t *pid, float error);
+float changable_pid_solve(pid_param_t *pid, float error);
 
 #endif /* _PID_H_ */
     

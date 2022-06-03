@@ -42,14 +42,69 @@
 #include "angle.h"
 #include "motor.h"
 #include "time_pit.h"
+#include "road.h"
+#include "MahonyAHRS.h"
 
 #define LIST_FIND_OBJ_NR 8
 
-static void imu_init(void)
+static void smotor_test(int argc, char**argv)
 {
-  imu963ra_init();
+  if (argc < 2)
+    {
+        rt_kprintf("Please input suck like 'change_yaw 10");
+        return;
+    }
+    
+    if(rt_strcmp(argv[1], "0"))
+    {
+      pwm_duty(PWM4_MODULE2_CHA_C30, 3850);
+      gpio_set(B9, 0);
+      return;
+    }
+    else if(rt_strcmp(argv[1], "1"))
+    {
+      pwm_duty(PWM4_MODULE2_CHA_C30, 1500);
+      gpio_set(B9, 1);
+      return;
+    }
+    
+    return;
 }
-MSH_CMD_EXPORT(imu_init, imu init);
+MSH_CMD_EXPORT(smotor_test, smotor test);
+
+
+static void change_yaw(int argc, char**argv)
+{
+  float yaw_set = 0.0;
+  
+    if (argc < 2)
+    {
+        rt_kprintf("Please input suck like 'change_yaw 10");
+        return;
+    }
+
+    if(*argv[1] == 0 || (*argv[1] - '0') > 9 || (*argv[1] - '0') < 0)
+    {
+        rt_kprintf("Please input suck like 'change_yaw 10");
+        return;
+    }
+    else if(*(argv[1] + 1) == 0)
+    {
+       yaw_set = (float)(*argv[1] - '0');
+    }
+    else if(*(argv[1] + 2) == 0)
+    {
+       yaw_set = (float)(*argv[1] - '0') * 10 + (float)(*(argv[1] + 1) - '0');
+    }
+    else
+    {
+       yaw_set = (float)(*argv[1] - '0') * 100 + (float)(*(argv[1] + 1) - '0') * 10 + (float)(*(argv[1] + 2) - '0');  
+    }
+    
+    arhs_data.yaw = yaw_set;
+    return;
+}
+MSH_CMD_EXPORT(change_yaw, imu init);
 
 
 static void target_speed(int argc, char**argv)

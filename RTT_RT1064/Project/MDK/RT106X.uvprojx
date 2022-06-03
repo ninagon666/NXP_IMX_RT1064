@@ -2225,17 +2225,20 @@
               <FileType>5</FileType>
               <FilePath>..\CODE\road.h</FilePath>
             </File>
+            <File>
+              <FileName>control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\control.c</FilePath>
+            </File>
+            <File>
+              <FileName>control.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\CODE\control.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Math</GroupName>
-          <Files>
-            <File>
-              <FileName>my_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Filters\my_math.c</FilePath>
-            </File>
-          </Files>
         </Group>
       </Groups>
     </Target>
@@ -4458,17 +4461,20 @@
               <FileType>5</FileType>
               <FilePath>..\CODE\road.h</FilePath>
             </File>
+            <File>
+              <FileName>control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\control.c</FilePath>
+            </File>
+            <File>
+              <FileName>control.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\CODE\control.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Math</GroupName>
-          <Files>
-            <File>
-              <FileName>my_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Filters\my_math.c</FilePath>
-            </File>
-          </Files>
         </Group>
       </Groups>
     </Target>
