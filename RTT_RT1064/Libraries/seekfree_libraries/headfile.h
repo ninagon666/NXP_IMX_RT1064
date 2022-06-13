@@ -73,7 +73,6 @@
 #include "SEEKFREE_MT9V03X.h"
 #include "SEEKFREE_WIRELESS.h"
 #include "SEEKFREE_MT9V03X_CSI.h"
-#include "SEEKFREE_W25QXXJV.h"
 #include "SEEKFREE_IMU963RA.h"
 
 #endif

@@ -38,6 +38,8 @@
 #include "buzzer.h"
 #include "button.h"
 #include "control.h"
+#include "openartmini.h"
+#include "road.h"
 
 int main(void)
 {
@@ -48,11 +50,14 @@ int main(void)
   buzzer_init();
   button_init();
   Target_Location_Init();
+//  map_calculate(true_map, turn_angle, map_gap, ture_points_num, 
+//                         (double)(35) / 100.0f, (double)(25) / 100.0f);
+  control_init();
   timer_pit_init();
   display_init();
   encoder_init();
   motor_init();
-  control_init();
+  openart_mini();
   
   EnableGlobalIRQ(0);
   

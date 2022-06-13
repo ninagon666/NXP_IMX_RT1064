@@ -51,6 +51,7 @@ typedef struct
         .gama = _gama,                                            \
     }
 
+float pid_solve(pid_param_t *pid, float error);
 float pid_solve_dah(pid_param_t *pid, float error);
 float pid_solve_nomal(pid_param_t *pid, float error);    
 float increment_pid_solve(pid_param_t *pid, float error);

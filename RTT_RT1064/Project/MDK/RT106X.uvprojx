@@ -2235,6 +2235,16 @@
               <FileType>5</FileType>
               <FilePath>..\CODE\control.h</FilePath>
             </File>
+            <File>
+              <FileName>openartmini.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\openartmini.c</FilePath>
+            </File>
+            <File>
+              <FileName>openartmini.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\CODE\openartmini.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4470,6 +4480,16 @@
               <FileName>control.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\CODE\control.h</FilePath>
+            </File>
+            <File>
+              <FileName>openartmini.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\openartmini.c</FilePath>
+            </File>
+            <File>
+              <FileName>openartmini.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\CODE\openartmini.h</FilePath>
             </File>
           </Files>
         </Group>

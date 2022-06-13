@@ -47,6 +47,55 @@
 
 #define LIST_FIND_OBJ_NR 8
 
+extern rt_sem_t next_control_sem;
+
+static void encoder(int argc, char**argv)
+{
+  if (argc < 2)
+    {
+        rt_kprintf("Please input suck like 'change_yaw 10");
+        return;
+    }
+    
+    if(rt_strcmp(argv[1], "1"))
+    {
+      PRINTF("%.0lf,%.0lf\n", motor_1.x_encoder, motor_1.y_encoder);
+      return;
+    }
+    else if(rt_strcmp(argv[1], "2"))
+    {
+      PRINTF("%.0lf,%.0lf\n", motor_2.x_encoder, motor_2.y_encoder);
+      return;
+    }
+    else if(rt_strcmp(argv[1], "3"))
+    {
+      PRINTF("%.0lf,%.0lf\n", motor_3.x_encoder, motor_3.y_encoder);
+      return;
+    }
+    else if(rt_strcmp(argv[1], "4"))
+    {
+      PRINTF("%.0lf,%.0lf\n", motor_4.x_encoder, motor_4.y_encoder);
+      return;
+    }
+    else if(rt_strcmp(argv[1], "5"))
+    {
+      PRINTF("%.0lf,%.0lf\n", motor_1.x_encoder+motor_2.x_encoder+motor_3.x_encoder+motor_4.x_encoder, 
+                              motor_1.y_encoder+motor_2.y_encoder+motor_3.y_encoder+motor_4.y_encoder);
+      return;
+    }
+    
+    return;
+}
+MSH_CMD_EXPORT(encoder, encoder nums);
+
+static void next_point(void)
+{
+  rt_sem_release(next_control_sem);
+  
+  return ;
+}
+MSH_CMD_EXPORT(next_point, next point);
+
 static void smotor_test(int argc, char**argv)
 {
   if (argc < 2)
@@ -63,8 +112,20 @@ static void smotor_test(int argc, char**argv)
     }
     else if(rt_strcmp(argv[1], "1"))
     {
+      pwm_duty(PWM4_MODULE2_CHA_C30, 3850);
+      gpio_set(B9, 1);
+      return;
+    }
+    else if(rt_strcmp(argv[1], "2"))
+    {
       pwm_duty(PWM4_MODULE2_CHA_C30, 1500);
       gpio_set(B9, 1);
+      return;
+    }
+    else if(rt_strcmp(argv[1], "3"))
+    {
+      pwm_duty(PWM4_MODULE2_CHA_C30, 1500);
+      gpio_set(B9, 0);
       return;
     }
     

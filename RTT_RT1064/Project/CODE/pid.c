@@ -68,6 +68,16 @@ float pid_solve_dah(pid_param_t *pid, float error)
   return pid_output;
 }
 
+float pid_solve(pid_param_t *pid, float error) {
+    pid->out_d = (error - pid->out_p) * pid->low_pass + pid->out_d * (1 - pid->low_pass);
+    pid->out_p = error;
+    pid->out_i += error;
+
+    if (pid->ki != 0) pid->out_i = MINMAX(pid->out_i, -pid->i_max / pid->ki, pid->i_max / pid->ki);
+
+    return pid->kp * pid->out_p + pid->ki * pid->out_i + pid->kd * pid->out_d;
+}
+
 // 常规PID
 float pid_solve_nomal(pid_param_t *pid, float error)
 {

@@ -11,7 +11,6 @@ int points_label[22] = {0};//路径序列
 double turn_angle[22] = {0};//转向角度
 double map_gap[22] = {0};//旅程
 
-
 void find_road(int in_map[][2], int *out_label) {
     double points_gap[21] = {0}; //用于存放点到点之间的距离
     int point_now = 0;           //当前指向点
@@ -69,9 +68,15 @@ void map_calculate(int input[][2], double *angle, double *gap, const int pts_num
                          input[i+1][0] - input[i][0]) * 180.0f / PI;
         if(angle[i] < 0)
             angle[i] = 360.0f + angle[i];
-        gap[i] = sqrt(pow((((double) input[i][0] / x_length * 4.2f) -
-                       ((double) input[i + 1][0] / x_length * 4.2f)), 2)
-                       + pow((((double) input[i][1] / y_length * 3.0f) -
-                       ((double) input[i + 1][1] / y_length * 3.0f)), 2));
+        
+//        for (int j = 1; j <= pts_nums; ++j) {
+//          input[j][0] = input[j][0] - (x_length * 10.0f);
+//          input[j][1] = input[j][1] + (y_length * 8.0f);
+//        }
+        
+        gap[i] = sqrt(pow((((double) input[i][0] / x_length * 7.0f) -
+                       ((double) input[i + 1][0] / x_length * 7.0f)), 2)
+                       + pow((((double) input[i][1] / y_length * 5.0f) -
+                       ((double) input[i + 1][1] / y_length * 5.0f)), 2));
     }
 }

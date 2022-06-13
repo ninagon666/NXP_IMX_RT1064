@@ -102,7 +102,6 @@
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_MT9V03X.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_WIRELESS.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_MT9V03X_CSI.h \
-  ..\..\Libraries\seekfree_peripheral\SEEKFREE_W25QXXJV.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_IMU963RA.h \
   ..\CODE\encoder.h ..\CODE\motor.h ..\CODE\pid.h ..\CODE\angle.h \
-  ..\CODE\MahonyAHRS.h
+  ..\CODE\MahonyAHRS.h ..\CODE\target_location.h

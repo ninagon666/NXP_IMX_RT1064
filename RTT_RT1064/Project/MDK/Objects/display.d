@@ -102,7 +102,6 @@
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_MT9V03X.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_WIRELESS.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_MT9V03X_CSI.h \
-  ..\..\Libraries\seekfree_peripheral\SEEKFREE_W25QXXJV.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_IMU963RA.h \
   ..\CODE\motor.h ..\CODE\pid.h ..\CODE\display.h \
   D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h ..\CODE\MahonyAHRS.h \

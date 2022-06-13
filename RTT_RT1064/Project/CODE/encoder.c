@@ -1,5 +1,7 @@
 #include "encoder.h"
 
+float x_total = 0.0f, y_total = 0.0f;
+
 // ENCODER1
 #define ENCODER1_QTIMER QTIMER_1
 #define ENCODER1_A QTIMER1_TIMER2_C2
@@ -29,13 +31,6 @@ float low_pass = 0.25;  //低通滤波系数(0-1) 越高灵敏度越低但是平
 
 void encoder_get(void)
 {
-    //debug
-//    motor_1.encoder_raw = -qtimer_quad_get(ENCODER1_QTIMER, ENCODER1_A);
-//    motor_2.encoder_raw = qtimer_quad_get(ENCODER2_QTIMER, ENCODER2_A);
-//    motor_3.encoder_raw = qtimer_quad_get(ENCODER3_QTIMER, ENCODER3_A);
-//    motor_4.encoder_raw = -qtimer_quad_get(ENCODER4_QTIMER, ENCODER4_A);
-//    PRINTF("%.0lf,%.0lf,%.0lf,%.0lf\n", motor_1.encoder_raw, motor_2.encoder_raw, motor_3.encoder_raw, motor_4.encoder_raw);
-    
     //获取原始数据
     motor_1.encoder_raw = qtimer_quad_get(ENCODER1_QTIMER, ENCODER1_A) / 2.;
     motor_2.encoder_raw = -qtimer_quad_get(ENCODER2_QTIMER, ENCODER2_A) / 2.;
@@ -47,6 +42,22 @@ void encoder_get(void)
     motor_2.encoder_speed = motor_2.encoder_speed * low_pass + motor_2.encoder_raw * (1. - low_pass);
     motor_3.encoder_speed = motor_3.encoder_speed * low_pass + motor_3.encoder_raw * (1. - low_pass);
     motor_4.encoder_speed = motor_4.encoder_speed * low_pass + motor_4.encoder_raw * (1. - low_pass);
+  
+    //计算xy编码器位移
+    motor_1.x_encoder += motor_1.encoder_speed;
+    motor_1.y_encoder += motor_1.encoder_speed;
+    motor_2.x_encoder += motor_2.encoder_speed;
+    motor_2.y_encoder -= motor_2.encoder_speed;
+    motor_3.x_encoder += motor_3.encoder_speed;
+    motor_3.y_encoder -= motor_3.encoder_speed;
+    motor_4.x_encoder += motor_4.encoder_speed;
+    motor_4.y_encoder += motor_4.encoder_speed;
+    
+    x_total = motor_1.x_encoder + motor_2.x_encoder 
+            + motor_3.x_encoder + motor_4.x_encoder;
+            
+    y_total = motor_1.y_encoder + motor_2.y_encoder 
+            + motor_3.y_encoder + motor_4.y_encoder;        
 
     //计算
     motor_1.total_encoder += motor_1.encoder_raw;

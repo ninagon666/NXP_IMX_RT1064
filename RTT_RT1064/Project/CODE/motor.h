@@ -30,7 +30,8 @@ typedef enum{
 typedef struct motor_param_t
 {
     float total_encoder;  //编码器总值 total = raw + speed 此值用于记录总行程
-    //float target_encoder; //编码器目标值 ？不知有何用处 暂不用
+    float x_encoder;
+    float y_encoder;
     float encoder_raw;    //编码器原始数据 raw = half of编码器读取值
     float encoder_speed;  //测量速度 speed是raw一阶低通滤波出来的值
     float target_speed;   //目标速度
@@ -42,11 +43,13 @@ typedef struct motor_param_t
 
 extern motor_param_t motor_1, motor_2, motor_3, motor_4;
 
-#define MOTOR_CREATE(ts, kp, ki, kd, low_pass, _gama, p_max, i_max, d_max) \
-    {                                                                                             \
-        .total_encoder = 0,                                                                       \
-        .target_speed = ts,                                                                       \
-        .pid = PID_CREATE(kp, ki, kd, low_pass, _gama, p_max, i_max, d_max),                             \
+#define MOTOR_CREATE(ts, kp, ki, kd, low_pass, _gama, p_max, i_max, d_max)                       \
+    {                                                                                            \
+        .x_encoder = 0.0f,                                                                       \
+        .y_encoder = 0.0f,                                                                       \
+        .total_encoder = 0.0f,                                                                   \
+        .target_speed = ts,                                                                      \
+        .pid = PID_CREATE(kp, ki, kd, low_pass, _gama, p_max, i_max, d_max),                     \
     }
 
 

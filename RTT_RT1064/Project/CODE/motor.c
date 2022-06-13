@@ -1,9 +1,13 @@
 #include "motor.h"
 //
-motor_param_t motor_1 = MOTOR_CREATE(0, 900, 25, 5000, 1, 0.5, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
-motor_param_t motor_2 = MOTOR_CREATE(0, 580, 25, 6600, 1, 0.5, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
-motor_param_t motor_3 = MOTOR_CREATE(0, 550, 25, 7500, 1, 0.5, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
-motor_param_t motor_4 = MOTOR_CREATE(0, 900, 25, 5000, 1, 0.5, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
+//motor_param_t motor_1 = MOTOR_CREATE(0, 1100, 18, 5000, 1, 0.5, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
+//motor_param_t motor_2 = MOTOR_CREATE(0, 760, 18, 6600, 1, 0.5, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
+//motor_param_t motor_3 = MOTOR_CREATE(0, 850, 18, 7500, 1, 0.5, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
+//motor_param_t motor_4 = MOTOR_CREATE(0, 900, 18, 5000, 1, 0.5, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
+motor_param_t motor_1 = MOTOR_CREATE(0, 650,  8, 30000, 1, 0.5, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
+motor_param_t motor_2 = MOTOR_CREATE(0, 1100, 7, 30000, 1, 0.5, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
+motor_param_t motor_3 = MOTOR_CREATE(0, 600,  8, 30000, 1, 0.5, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
+motor_param_t motor_4 = MOTOR_CREATE(0, 960,  8, 30000, 1, 0.5, MOTOR_P_MAX, MOTOR_I_MAX, MOTOR_D_MAX);
 
 void all_wheels_set(float ats)
 {

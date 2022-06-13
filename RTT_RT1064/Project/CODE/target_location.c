@@ -41,7 +41,7 @@ uint8 edge_point3_x = 0, edge_point3_y = 0; //右下
 uint8 edge_point4_x = 0, edge_point4_y = 0; //左下
 
 //边缘线坐标 Xt 上边缘X坐标 Xb 下边缘X坐标 Yl 左边缘Y坐标 Yr 右边缘Y坐标
-uint8 Xt = 40, Xb = 80, Yl = 50, Yr = 110;
+uint8 Xt = 10, Xb = 35, Yl = 10, Yr = 45;
 
 //二值化阈值 显示字符串
 uint8 thres = 100, thres_str[20];
@@ -486,13 +486,14 @@ void Target_Location_entry()
             if (mt9v03x_csi_finish_flag)
             {
                 mt9v03x_csi_finish_flag = 0;
-                // rt_enter_critical();// 调度器上锁，上锁后将不再切换到其他线程，仅响应中断
+                rt_enter_critical();// 调度器上锁，上锁后将不再切换到其他线程，仅响应中断
                 // 以下进入临界区
                 // 临界区代码执行不会被其他线程抢占
                 //二值化
                 AdaptiveThreshold(mt9v03x_csi_image[0], mt9v03x_thres_image[0], MT9V03X_CSI_W, MT9V03X_CSI_H, 7, clip_value);
+                //Threshold(mt9v03x_csi_image[0], mt9v03x_thres_image[0], MT9V03X_CSI_W, MT9V03X_CSI_H, 180);
                 Find_Edge_1();
-                // rt_exit_critical();// 调度器解锁
+                rt_exit_critical();// 调度器解锁
                 edge_point1_x = Xt;
                 edge_point1_y = Yl;
                 edge_point2_x = Xt;
@@ -568,6 +569,10 @@ void Target_Location_entry()
                     NEXT = &Points_arr[total_point - 1];
                     point_clean(NEXT);
                     points_label[total_point - 1] = 0;
+                    true_map[total_point - 1][0] = 0;
+                    true_map[total_point - 1][1] = 0;
+                    turn_angle[total_point - 1] = 0;
+                    map_gap[total_point - 1] = 0;
                 }
 
                 MODE_TAG = 0;
@@ -575,7 +580,10 @@ void Target_Location_entry()
             }
         }
     }
-
+    
+    turn_angle[0] = turn_angle[0] - 5.0f;
+    turn_angle[1] = turn_angle[1] - 4.0f;
+    
     rt_mb_send(buzzer_mailbox, 233);
     lcd_clear(WHITE);
 

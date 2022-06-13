@@ -1,4 +1,4 @@
-./objects/control.o: ..\CODE\control.c ..\CODE\control.h \
+./objects/openartmini.o: ..\CODE\openartmini.c ..\CODE\openartmini.h \
   ..\..\Libraries\seekfree_libraries\headfile.h \
   D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
   ..\..\Libraries\nxp_libraries\drives\fsl_common.h \
@@ -102,6 +102,4 @@
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_MT9V03X.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_WIRELESS.h \
   ..\..\Libraries\seekfree_peripheral\SEEKFREE_MT9V03X_CSI.h \
-  ..\..\Libraries\seekfree_peripheral\SEEKFREE_IMU963RA.h \
-  ..\CODE\time_pit.h ..\CODE\road.h ..\CODE\angle.h ..\CODE\pid.h \
-  ..\CODE\motor.h ..\CODE\MahonyAHRS.h
+  ..\..\Libraries\seekfree_peripheral\SEEKFREE_IMU963RA.h
